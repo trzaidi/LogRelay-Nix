@@ -14,9 +14,16 @@
       let
         // Pull the package set for whatever system we're building on
         pkgs = nixpkgs.legacyPackages.${system};
+
+         // Cross-compilation package set targeting Jetson Orin (aarch64-linux)
+        pkgsCross = nixpkgs.legacyPackages.${system}.pkgsCross.aarch64-multiplatform;
+        
       in {
         // Builds LogRelay from source using the derivation in pkgs/logrelay.nix
         packages.logrelay = pkgs.callPackage ./pkgs/logrelay.nix {};
+
+        // Cross-compiled LogRelay binary targeting Jetson Orin
+        packages.logrelay-aarch64 = pkgsCross.callPackage ./pkgs/logrelay.nix {};
 
         // Local dev shell with everything needed to work on LogRelay in Rust
         devShells.default = pkgs.mkShell {
