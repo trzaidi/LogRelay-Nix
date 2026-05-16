@@ -17,7 +17,6 @@
 
         // Cross-compilation package set targeting Jetson Orin (aarch64-linux)
         pkgsCross = nixpkgs.legacyPackages.${system}.pkgsCross.aarch64-multiplatform;
-
       in {
         // Builds LogRelay from source using the derivation in pkgs/logrelay.nix
         packages.logrelay = pkgs.callPackage ./pkgs/logrelay.nix {};
@@ -37,5 +36,14 @@
     ) // {
       // Expose the NixOS module so other flakes can import and use it
       nixosModules.logrelay = import ./modules/logrelay.nix;
+
+      // Example NixOS system configuration for Jetson Orin with LogRelay running on boot
+      nixosConfigurations.orin-example = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          self.nixosModules.logrelay
+          ./modules/orin-example.nix
+        ];
+      };
     };
 }
