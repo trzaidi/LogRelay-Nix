@@ -2,10 +2,10 @@
   description = "NixOS flake and service module for LogRelay on NVIDIA Jetson Orin";
 
   inputs = {
-    // Main nix package collection, pinned to nixos-unstable for latest packages
+    // Main Nix package collection, pinned to nixos-unstable for latest packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    // Reduce boilerplate when targeting multiple systems like x86 and aarch64
+    // Reduces boilerplate when targeting multiple systems like x86 and aarch64
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -27,5 +27,8 @@
           ];
         };
       }
-    ); 
+    ) // {
+      // Expose the NixOS module so other flakes can import and use it
+      nixosModules.logrelay = import ./modules/logrelay.nix;
+    };
 }
