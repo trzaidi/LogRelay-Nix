@@ -33,7 +33,7 @@
           ];
         };
       }
-    ) {
+    ) // {
       # Expose the NixOS module so other flakes can import and use it
       nixosModules.logrelay = import ./modules/logrelay.nix;
 
