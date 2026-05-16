@@ -15,9 +15,9 @@
         // Pull the package set for whatever system we're building on
         pkgs = nixpkgs.legacyPackages.${system};
 
-         // Cross-compilation package set targeting Jetson Orin (aarch64-linux)
+        // Cross-compilation package set targeting Jetson Orin (aarch64-linux)
         pkgsCross = nixpkgs.legacyPackages.${system}.pkgsCross.aarch64-multiplatform;
-        
+
       in {
         // Builds LogRelay from source using the derivation in pkgs/logrelay.nix
         packages.logrelay = pkgs.callPackage ./pkgs/logrelay.nix {};
