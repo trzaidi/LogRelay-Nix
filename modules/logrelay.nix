@@ -42,7 +42,7 @@ in {
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.logrelay}/bin/logrelay --port ${cfg.serialPort} --baud ${toString cfg.baudRate} --log ${cfg.logPath}";
+        ExecStart = "${pkgs.callPackage ../pkgs/logrelay.nix {}}/bin/logrelay --port ${cfg.serialPort} --baud ${toString cfg.baudRate} --log ${cfg.logPath}";
 
         # Restart automatically on failure with a short delay
         Restart = "on-failure";
