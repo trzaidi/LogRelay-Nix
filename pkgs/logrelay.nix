@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage {
   pname = "logrelay";
   version = "0.1.0";
 
-  // Fetch LogRelay source directly from GitHub
+  # Fetch LogRelay source directly from GitHub
   src = fetchFromGitHub {
     owner = "trzaidi";
     repo = "LogRelay";
@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage {
     hash = lib.fakeHash;
   };
 
-  // Cargo.lock is required for reproducible Rust builds in Nix
+  # Cargo.lock is required for reproducible Rust builds in Nix
   cargoLock = {
     lockFile = ./Cargo.lock;
   };
