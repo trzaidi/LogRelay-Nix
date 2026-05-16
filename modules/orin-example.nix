@@ -9,6 +9,17 @@
   # Target architecture is Jetson Orin
   nixpkgs.hostPlatform = "aarch64-linux";
 
+  # Jetson devices use extlinux rather than grub for bootloading
+  boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = true;
+
+  # Root filesystem pointing to the first partition on the Orin eMMC
+  # Adjust this to match your actual storage device, NVMe would be /dev/nvme0n1p1
+  fileSystems."/" = {
+    device = "/dev/mmcblk0p1";
+    fsType = "ext4";
+  };
+
   # Enable the LogRelay telemetry service
   services.logrelay = {
     enable = true;
