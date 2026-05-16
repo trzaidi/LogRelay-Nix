@@ -12,10 +12,8 @@ rustPlatform.buildRustPackage {
     hash = lib.fakeHash;
   };
 
-  # Cargo.lock is required for reproducible Rust builds in Nix
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  # Hash of the cargo dependencies, use lib.fakeHash until first real build
+  cargoHash = lib.fakeHash;
 
   meta = {
     description = "MAVLink telemetry ingestion and relay for Group 1-3 UAS";
